@@ -1,4 +1,4 @@
-import { appleImg, searchImg } from '../utils'
+import { appleImg, searchImg, bagImg } from '../utils'
 import { navLists } from '../constants'
 
 export default function Navbar() {
