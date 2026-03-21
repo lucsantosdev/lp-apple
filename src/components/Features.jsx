@@ -1,6 +1,6 @@
 import { useGSAP } from '@gsap/react'
 import React, { useRef } from 'react'
-import { animateWithGsap } from '../utils/animations'
+import { animateWithGsap, scrollProps } from '../utils/animations'
 import { explore1Img, explore2Img, exploreVideo } from '../utils'
 import gsap from 'gsap'
 
@@ -22,7 +22,7 @@ export default function Features() {
     })
     animateWithGsap('#features_title', { y: 0, opacity: 1, })
     animateWithGsap(
-        '.g__grow',
+        '.g_grow',
         { scale: 1, opacity: 1, ease: 'power1' },
         { scrub: 5.5}
     )

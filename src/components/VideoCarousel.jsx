@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { hightlightsSlides } from "../constants";
-import { pauseImg } from "../utils";
+import { pauseImg, playImg, replayImg } from "../utils";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export default function VideoCarousel() {
 

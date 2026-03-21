@@ -1,4 +1,4 @@
-import { Environment, Lightformer, spotLight } from "@react-three/drei";
+import { Environment, Lightformer, SpotLight } from "@react-three/drei";
 export default function Lights() {
   return (
     // group different lights and lightformers. We can use to organize lights, cameras, meshes, and other objects in the scene.
@@ -41,7 +41,7 @@ export default function Lights() {
           * @description spotLight is used to create a light source positioned at a specific point in the scene that emits lights in a specific direction.
           * https://threejs.org/docs/#api/en/lights/SpotLight
           */}
-          <spotLight
+          <SpotLight
             position={[-2, 10, 5]}
             angle={0.15}
             penumbra={1} // the penumbra is the soft edge of a shadow cast by a point light
@@ -49,7 +49,7 @@ export default function Lights() {
             intensity={Math.PI * 0.2} // the light intensity 
             color={"#F8F9FA"}
         />
-        <spotLight
+        <SpotLight
             position={[0, -25, 10]}
             angle={0.15}
             penumbra={1}
@@ -57,7 +57,7 @@ export default function Lights() {
             intensity={Math.PI * 0.2}
             color={"#F8F9FA"}
         />
-        <spotLight
+        <SpotLight
             position={[0, 15, 5]}
             angle={0.15}
             penumbra={1}

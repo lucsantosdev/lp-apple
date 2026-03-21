@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { chipImg, frameImg, frameVideo } from '../utils'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { animatedWithGsap } from '../utils/animations'
+import { animateWithGsap } from '../utils/animations'
 
 export default function HowItWorks() {
 
@@ -20,7 +20,7 @@ export default function HowItWorks() {
         ease: 'power2.inOut'
     })
 
-    animatedWithGsap('.g_fadeIn', { y: 0, opacity: 1, duration: 1, ease: 'power2.inOut' })
+    animateWithGsap('.g_fadeIn', { y: 0, opacity: 1, duration: 1, ease: 'power2.inOut' })
   }, [])
 
   return (
@@ -59,8 +59,8 @@ export default function HowItWorks() {
                         </p>
                         <p className="hiw-text g_fadeIn">
                             Mobile {' '}
-                            <span className="text-wwhite">games will look and feel so immersive</span>,
-                            with incredibly detailed wnvironments and characters.
+                            <span className="text-white">games will look and feel so immersive</span>,
+                            with incredibly detailed environments and characters.
                         </p>
                     </div>
                 <div className="flex-1 flex justify-center flex-col g_fadeIn">
