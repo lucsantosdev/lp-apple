@@ -6,9 +6,14 @@ import { Canvas } from "@react-three/fiber"
 import { View } from "@react-three/drei"
 import { models, sizes } from "../constants"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { animateWithGsapTimeline } from "../utils/animations"
 
 export default function Model() {
+
+    const sectionRef = useRef(null)
+    // render the shared canvas only while the section is near the viewport
+    const [inView, setInView] = useState(false)
 
     const [size, setSize] = useState('small')
 
@@ -48,12 +53,25 @@ export default function Model() {
         return () => { tl.kill() }
     }, [size])
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => setInView(entry.isIntersecting),
+            { rootMargin: '200px 0px' }
+        )
+        observer.observe(sectionRef.current)
+
+        // this section loads lazily, so the page height changed after load
+        ScrollTrigger.refresh()
+
+        return () => observer.disconnect()
+    }, [])
+
     useGSAP(() => {
         gsap.to("#heading", { y: 0, opacity: 1})
     }, [])
 
     return (
-        <section className="common-padding">
+        <section ref={sectionRef} className="common-padding">
             <div className="screen-max-width">
                 <h1 id="heading" className="section-heading">
                     Take a closer look.
@@ -91,6 +109,8 @@ export default function Model() {
                                 pointerEvents: 'none'
                             }}
                             eventSource={eventSource}
+                            frameloop={inView ? "always" : "never"}
+                            dpr={[1, 2]}
                         >
                             <View.Port />
                         </Canvas>
