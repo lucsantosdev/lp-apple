@@ -7,13 +7,13 @@ export default function Footer() {
             <div>
                 <p className="font-semibold text-gray text-xs">
                     More ways to shop: {' '}
-                    <span className="underline text-blue">
+                    <a href="#" className="underline text-blue">
                         Find an Apple Store {' '}
-                    </span>
+                    </a>
                     or {' '}
-                    <span className="underline text-blue">
+                    <a href="#" className="underline text-blue">
                         other retailer
-                    </span>{' '}
+                    </a>{' '}
                     near you.
                 </p>
                 <p className="font-semibold text-gray text-xs">
@@ -47,7 +47,7 @@ export default function Footer() {
                 <div className="flex">
                     {footerLinks.map((link, i) => (
                         <p key={link} className="font-semibold text-gray text-xs">
-                            {link}{' '}
+                            <a href="#" className="hover:underline">{link}</a>{' '}
                             {i !== footerLinks.length - 1 && <span className="mx-2"> | </span>}
                         </p>
                     ))}

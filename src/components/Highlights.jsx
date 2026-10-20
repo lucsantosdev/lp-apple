@@ -16,14 +16,14 @@ export default function Highlights() {
             <div className='mb-12 w-full md:flex items-end justify-between'>
                 <h1 id="title" className="section-heading">Get the highlights</h1>
                 <div className="flex flex-wrap items-end gap-5">
-                    <p className="link">
+                    <a href="#" className="link">
                         Watch the film
-                        <img src={watchImg} alt="watch the film" className='ml-2' />
-                    </p>
-                    <p className="link">
+                        <img src={watchImg} alt="" className='ml-2' />
+                    </a>
+                    <a href="#" className="link">
                         Watch the event
-                        <img src={rightImg} alt="watch the event" className='ml-2' />
-                    </p>
+                        <img src={rightImg} alt="" className='ml-2' />
+                    </a>
                 </div>
             </div>
             <VideoCarousel />
