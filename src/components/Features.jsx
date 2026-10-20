@@ -1,24 +1,23 @@
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
-import { animateWithGsap, scrollProps } from '../utils/animations'
+import { animateWithGsap } from '../utils/animations'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { explore1Img, explore2Img, exploreVideo } from '../utils'
-import gsap from 'gsap'
 
 export default function Features() {
 
   const videoRef = useRef()
 
   useGSAP(() => {
-    gsap.to('#exploreVideo', {
-        scrollTrigger: {
-            trigger: '#exploreVideo',
-            toggleActions: 'play pause reverse restart',
-            start: '-10% bottom',
-            ...scrollProps
+    // play the video only while it is on screen
+    ScrollTrigger.create({
+        trigger: videoRef.current,
+        start: '-10% bottom',
+        end: 'bottom top',
+        onToggle: ({ isActive }) => {
+            if (isActive) videoRef.current.play().catch(() => {})
+            else videoRef.current.pause()
         },
-        onComplete: () => {
-            videoRef.current.play()
-        }
     })
     animateWithGsap('#features_title', { y: 0, opacity: 1, })
     animateWithGsap(
@@ -45,7 +44,7 @@ export default function Features() {
                 </div>
                 <div className="flex-center flex-col sm:px-10">
                     <div className="relative h-[50vh] w-full flex items-center">
-                        <video playsInline id="exploreVideo" className="w-full h-full object-cover object-center" preload="none" muted autoPlay ref={videoRef}>
+                        <video id="exploreVideo" className="w-full h-full object-cover object-center" preload="metadata" muted playsInline ref={videoRef}>
                             <source src={exploreVideo} type="video/mp4" />
                         </video>
                     </div>

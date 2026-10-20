@@ -1,7 +1,6 @@
 import { useGSAP } from "@gsap/react"
 import ModelView from "./ModelView"
 import { useEffect, useRef, useState } from "react"
-import { yellowImg } from "../utils"
 import * as THREE from 'three'
 import { Canvas } from "@react-three/fiber"
 import { View } from "@react-three/drei"
@@ -13,13 +12,12 @@ export default function Model() {
 
     const [size, setSize] = useState('small')
 
-    const [model, setModel] = useState({
-        title: "iPhone 15 Pro in Natural Titanium",
-        color: ['#8F8A81', '#FFE7B9', '#6F6C64'],
-        img: yellowImg,
-    })
+    const [model, setModel] = useState(models[0])
 
-    // camera control fot the model view
+    // events of the shared canvas are listened on the app root
+    const [eventSource] = useState(() => document.getElementById('root'))
+
+    // camera control for the model view
     const cameraControlSmall = useRef()
     const cameraControlLarge = useRef()
 
@@ -27,31 +25,33 @@ export default function Model() {
     const small = useRef(new THREE.Group())
     const large = useRef(new THREE.Group())
 
-    // rotation
-    const [smallRotation, setSmallRotation] = useState(0)
-    const [largeRotation, setLargeRotation] = useState(0)
-
-    const tl = gsap.timeline()
+    // last rotation (azimuth) of each model, kept between size changes
+    const smallRotation = useRef(0)
+    const largeRotation = useRef(0)
 
     useEffect(() => {
+        const tl = gsap.timeline()
+
         if(size === 'large') {
-            animateWithGsapTimeline(tl, small, smallRotation, '#view1', '#view2', {
+            animateWithGsapTimeline(tl, small, smallRotation.current, '#view1', '#view2', {
                 transform: 'translateX(-100%)',
                 duration: 2
             })
         }
         if(size === 'small') {
-            animateWithGsapTimeline(tl, large, largeRotation, '#view2', '#view1', {
+            animateWithGsapTimeline(tl, large, largeRotation.current, '#view2', '#view1', {
                 transform: 'translateX(0)',
                 duration: 2
             })
         }
+
+        return () => { tl.kill() }
     }, [size])
 
     useGSAP(() => {
         gsap.to("#heading", { y: 0, opacity: 1})
     }, [])
-        
+
     return (
         <section className="common-padding">
             <div className="screen-max-width">
@@ -61,27 +61,25 @@ export default function Model() {
                 <div className="flex flex-col items-center mt-5">
                     <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
 
-                        <ModelView 
+                        <ModelView
                             index={1}
                             groupRef={small}
                             gsapType="view1"
                             controlRef={cameraControlSmall}
-                            setRotationState={setSmallRotation}
+                            setRotationState={(angle) => { smallRotation.current = angle }}
                             item={model}
-                            size={size}
                         />
 
-                        <ModelView 
+                        <ModelView
                             index={2}
                             groupRef={large}
                             gsapType="view2"
                             controlRef={cameraControlLarge}
-                            setRotationState={setLargeRotation}
+                            setRotationState={(angle) => { largeRotation.current = angle }}
                             item={model}
-                            size={size}
                         />
 
-                        <Canvas 
+                        <Canvas
                             className="w-full h-full"
                             style={{
                                 position: 'fixed',
@@ -89,9 +87,10 @@ export default function Model() {
                                 bottom: 0,
                                 left: 0,
                                 right: 0,
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                                pointerEvents: 'none'
                             }}
-                            eventSource={document.getElementById('root')}
+                            eventSource={eventSource}
                         >
                             <View.Port />
                         </Canvas>
@@ -101,17 +100,36 @@ export default function Model() {
                         <p className="text-sm font-light text-center mb-5">{model.title}</p>
                         <div className="flex-center">
                             <ul className="color-container">
-                                {models.map((item, i) => (
-                                    <li key={i} className="w-6 h-6 rounded-full mx-2 cursor-pointer" style={{ backgroundColor: item.color[0] }} onClick={() => setModel(item)} />
+                                {models.map((item) => (
+                                    <li key={item.id}>
+                                        <button
+                                          type="button"
+                                          aria-label={item.title}
+                                          aria-pressed={model.id === item.id}
+                                          className="block w-6 h-6 rounded-full mx-2 cursor-pointer transition-shadow focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
+                                          style={{
+                                            backgroundColor: item.color[0],
+                                            boxShadow: model.id === item.id ? '0 0 0 2px #000, 0 0 0 4px #fff' : 'none'
+                                          }}
+                                          onClick={() => setModel(item)}
+                                        />
+                                    </li>
                                 ))}
                             </ul>
-                            <button className="size-btn-container">
+                            <div className="size-btn-container" role="group" aria-label="Screen size">
                                 {sizes.map(({ label, value }) => (
-                                    <span key={label} className="size-btn" style={{ backgroundColor: size === value ? 'white' : 'transparent', color: size === value ? 'black' : 'white' }} onClick={() => setSize(value)} >
+                                    <button
+                                      type="button"
+                                      key={label}
+                                      aria-pressed={size === value}
+                                      className="size-btn cursor-pointer"
+                                      style={{ backgroundColor: size === value ? 'white' : 'transparent', color: size === value ? 'black' : 'white' }}
+                                      onClick={() => setSize(value)}
+                                    >
                                         {label}
-                                    </span>
+                                    </button>
                                 ))}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
