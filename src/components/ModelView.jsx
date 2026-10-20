@@ -30,7 +30,7 @@ export default function ModelView({ index, groupRef, gsapType, controlRef, setRo
                         
             />
 
-            <group ref={groupRef} name={`${index === 1} ? 'small' : 'large'`} position={[0, 0, 0]}>
+            <group ref={groupRef} name={index === 1 ? 'small' : 'large'} position={[0, 0, 0]}>
                 <Suspense fallback={<Loader />}>
                     <IPhone 
                       scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}

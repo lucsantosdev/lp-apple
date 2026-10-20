@@ -32,8 +32,8 @@ export default function Hero() {
             <p id="hero" className="hero-title">iPhone 15 Pro</p>
         </div>
         <div className="md:w-10/12 w-9/12">
-            <video autoPlay muted playsInline={true} key={videoSrc}>
-                <source className="pointer-events-none" src={videoSrc} type="video/mp4" />
+            <video className="pointer-events-none" autoPlay muted playsInline={true} key={videoSrc}>
+                <source src={videoSrc} type="video/mp4" />
             </video>
         </div>
         <div

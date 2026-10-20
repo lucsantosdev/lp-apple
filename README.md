@@ -1,34 +1,40 @@
-# Welcome to My Work-in-Progress!
-> Apple | Landing Page by [@lucsantosdev](https://github.com/lucsantosdev) 🍎📲
+# Apple iPhone 15 Pro | Landing Page
 
-## Sit Down, Grab a Coffee ☕
-Hey, you made it here! That's amazing. But before diving into the (still messy) code, how about grabbing a cup of coffee and taking it easy? While you sip your favorite drink, let me tell you a bit about what's going on here.
+Recreation of the Apple iPhone 15 Pro landing page with interactive 3D elements. A study / portfolio project by [@lucsantosdev](https://github.com/lucsantosdev) — not affiliated with Apple Inc.
 
-## 🚧 Under Construction...
-This project is still in development. But don't worry! I'm smashing my keyboard, debugging impossible lines, and consuming an unhealthy amount of coffee to create something unique.
+## Stack
 
-Want to take a sneak peek at the progress? Feel free to browse through the code, even if it's not quite *"ready for prime time"* yet.
+- [React 19](https://react.dev) + [Vite](https://vite.dev)
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [Three.js](https://threejs.org) via [@react-three/fiber](https://r3f.docs.pmnd.rs) and [@react-three/drei](https://drei.docs.pmnd.rs)
+- [GSAP](https://gsap.com) (+ ScrollTrigger) for animations
 
-## 🛠 What Will This Project Become?
-Imagine something useful, creative, and, of course, charming. Now imagine that I'm still figuring out exactly what that means. Jokes aside, this repository is aiming to become a React application (*Apple | Landing Page*) built with Vite, styled using Tailwind CSS v4. I also intend to use Three.js and GSAP for 3D-animation configuration.
+## Sections
 
-## ✅ Activities Done Until Now (Setup Configuration)
+1. **Hero** — headline and intro video
+2. **Highlights** — autoplaying video carousel
+3. **Model** — 3D iPhone viewer (drag to rotate, switch color and size)
+4. **Features** — scroll-driven titanium story
+5. **How it works** — A17 Pro chip section
+6. **Footer**
 
-- ✅ Set up React project with Vite
-- ✅ Installed and configured Tailwind CSS v4
-  - Added `tailwindcss` and `@tailwindcss/vite` packages
-  - Integrated Tailwind CSS v4 plugin in `vite.config.js`
-  - Configured Tailwind imports in `src/index.css`
-- ✅ Created custom color palette using Tailwind v4's `@theme` directive:
-  - Blue: `#2997FF`
-  - Gray variants: `#86868B`, `#94928D`, `#afafaf`, `#42424570`
-  - Zinc: `#101010`
+## Running locally
 
-## 💬 Get in Touch
-Feel like chatting, sending a compliment, or even complaining that this README doesn't reveal much? I'm here:
+```bash
+npm install
+npm run dev      # dev server
+npm run build    # production build
+npm run preview  # preview the production build
+npm run lint
+```
+
+## Credits
+
+- 3D model: ["Apple iPhone 15 Pro Max Black"](https://sketchfab.com/3d-models/apple-iphone-15-pro-max-black-df17520841214c1792fb8a44c6783ee7) by polyman, licensed under [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/).
+- Apple product names, imagery and videos belong to Apple Inc. and are used here for educational purposes only.
+
+## Contact
+
 - **Email:** [lucsantosdev@gmail.com](mailto:lucsantosdev@gmail.com)
 - **LinkedIn:** [lucsantosdev](https://www.linkedin.com/in/lucsantosdev)
 - **GitHub:** [lucsantosdev](https://github.com/lucsantosdev)
-
-## Disclaimer
-This README may contain traces of irony, questionable humor, and caffeine. **Use responsibly!**
