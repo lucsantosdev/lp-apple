@@ -2,7 +2,6 @@ import { OrbitControls, PerspectiveCamera, View } from "@react-three/drei";
 import Lights from "./Lights";
 import IPhone from "./IPhone";
 import { Suspense } from "react";
-import Loader from "./Loader";
 
 export default function ModelView({ index, groupRef, gsapType, controlRef, setRotationState, item}) {
     return (
@@ -28,7 +27,7 @@ export default function ModelView({ index, groupRef, gsapType, controlRef, setRo
             />
 
             <group ref={groupRef} name={index === 1 ? 'small' : 'large'} position={[0, 0, 0]}>
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={null}>
                     <IPhone
                       scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
                       item={item}

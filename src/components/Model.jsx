@@ -1,5 +1,6 @@
 import { useGSAP } from "@gsap/react"
 import ModelView from "./ModelView"
+import Loader from "./Loader"
 import { useEffect, useRef, useState } from "react"
 import * as THREE from 'three'
 import { Canvas } from "@react-three/fiber"
@@ -66,6 +67,24 @@ export default function Model() {
         return () => observer.disconnect()
     }, [])
 
+    // the phone spins into place while the section scrolls into view
+    useGSAP(() => {
+        const spin = { progress: 0 }
+        gsap.to(spin, {
+            progress: 1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 80%',
+                end: 'center center',
+                scrub: 1,
+            },
+            onUpdate: () => {
+                small.current.rotation.y = (1 - spin.progress) * -Math.PI * 0.6
+            },
+        })
+    }, { scope: sectionRef })
+
     useGSAP(() => {
         gsap.to("#heading", { y: 0, opacity: 1})
     }, [])
@@ -78,6 +97,8 @@ export default function Model() {
                 </h1>
                 <div className="flex flex-col items-center mt-5">
                     <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
+                        <Loader />
+
 
                         <ModelView
                             index={1}
@@ -117,6 +138,7 @@ export default function Model() {
 
                     </div>
                     <div className="mx-auto w-full">
+                        <p className="text-xs text-gray text-center mb-2">Drag to rotate</p>
                         <p className="text-sm font-light text-center mb-5">{model.title}</p>
                         <div className="flex-center">
                             <ul className="color-container">

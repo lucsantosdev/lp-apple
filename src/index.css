@@ -29,7 +29,7 @@ canvas {
   touch-action: none;
 }
 
-.scrim-max-width {
+.screen-max-width {
   margin-inline: auto;
   position: relative;
   max-width: 1120px;

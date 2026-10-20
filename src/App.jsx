@@ -5,6 +5,7 @@ import Highlights from "./components/Highlights"
 import Features from "./components/Features"
 import HowItWorks from "./components/HowItWorks"
 import Footer from "./components/Footer"
+import ErrorBoundary from "./components/ErrorBoundary"
 
 // Three.js is heavy: load the 3D section in its own chunk
 const Model = lazy(() => import("./components/Model"))
@@ -16,9 +17,11 @@ const App = () => {
       <Navbar />
       <Hero />
       <Highlights />
-      <Suspense fallback={<section className="common-padding h-screen" aria-hidden="true" />}>
-        <Model />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<section className="common-padding h-screen" aria-hidden="true" />}>
+          <Model />
+        </Suspense>
+      </ErrorBoundary>
       <Features />
       <HowItWorks />
       <Footer />
